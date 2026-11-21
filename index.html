@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anita | Portfolio</title>
+  <meta name="description" content="I design and build digital products that are simple to use. UI/UX design, ecommerce, and web development.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+  <a href="#main" class="skip">Skip to content</a>
+
+  <header class="nav">
+    <a href="#top" class="logo">PORTFOLIO</a>
+    <nav id="menu">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#tools">Tools</a>
+      <a href="#experience">Experience</a>
+      <a href="#awards">Resume</a>
+    </nav>
+    <div class="nav-right">
+      <button id="theme-toggle" aria-label="Toggle theme">🌓</button>
+      <a href="#contact" class="btn small">Get in touch</a>
+      <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero section (replace your current one): -->
+    <section class="hero" id="top">
+      <div class="hero-text">
+        <p class="eyebrow">Namaste, I am</p>
+        <h1>Anita</h1>
+        <p class="role">UI/UX Designer and Web Developer</p>
+        <p class="lead">I design and build digital products that feel simple to use. My work sits where design and code meet, from ecommerce apps to learning platforms and product packaging.</p>
+        <div class="actions">
+          <a href="#contact" class="btn">Get in touch</a>
+          <a href="#" class="btn ghost">View my CV</a>
+        </div>
+      </div>
+      <img class="hero-art" src="Picture/Girl.jpg" width="385" height="285" alt="Girl illustration">
+    </section>
+
+    <section id="about" class="section">
+      <h2>About me</h2>
+      <p>Write two or three short paragraphs here. Say who you are, the kind of problems you like solving, and how your IT background shapes your design decisions.</p>
+      <p>Mention where you are based, what you are open to (freelance, full-time, collaborations), and link your Instagram, Behance or Dribbble.</p>
+    </section>
+
+    <section id="work" class="section">
+      <h2>Some of my work</h2>
+      <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="uiux">UI/UX</button>
+        <button class="filter" data-filter="web">Web</button>
+        <button class="filter" data-filter="print">Print</button>
+      </div>
+      <div class="grid">
+        <article class="card" data-cat="uiux">
+          <div class="thumb">Project image</div>
+          <span class="tag">Mobile app</span>
+          <h3>Ecommerce App Design</h3>
+          <p class="meta">Role: UI/UX Designer</p>
+          <p>One or two lines on the problem, your process, and the result.</p>
+          <a href="#">View work →</a>
+        </article>
+        <article class="card" data-cat="web">
+          <div class="thumb">Project image</div>
+          <span class="tag">Website</span>
+          <h3>Ecommerce Website</h3>
+          <p class="meta">Role: Designer and Developer</p>
+          <p>What you built, the tech used, and one number that shows impact.</p>
+          <a href="#">View work →</a>
+        </article>
+        <article class="card" data-cat="web">
+          <div class="thumb">Project image</div>
+          <span class="tag">Learning platform</span>
+          <h3>Learning Platform</h3>
+          <p class="meta">Role: Developer</p>
+          <p>Who it serves, the key features, and what you learned.</p>
+          <a href="#">View work →</a>
+        </article>
+        <article class="card" data-cat="print">
+          <div class="thumb">Project image</div>
+          <span class="tag">Packaging</span>
+          <h3>Product Wrapping Labels</h3>
+          <p class="meta">Role: Graphic Designer</p>
+          <p>The brand, the concept, and how the final labels turned out.</p>
+          <a href="#">View work →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <article class="job">
+          <p class="date">2025 - Present</p>
+          <h3>Job title</h3>
+          <p class="org">Company or client</p>
+          <ul>
+            <li>One line on what you own or lead.</li>
+            <li>One line on a result, with a number if you can.</li>
+          </ul>
+        </article>
+        <article class="job">
+          <p class="date">2023 - 2025</p>
+          <h3>Job title</h3>
+          <p class="org">Company or client</p>
+          <ul>
+            <li>One line on what you did.</li>
+            <li>One line on what you shipped.</li>
+          </ul>
+        </article>
+        <article class="job extra" hidden>
+          <p class="date">2021 - 2023</p>
+          <h3>Earlier role</h3>
+          <p class="org">Company or client</p>
+          <ul><li>Short summary.</li></ul>
+        </article>
+      </div>
+      <button class="btn ghost" id="more-jobs">Show more roles</button>
+    </section>
+
+    <section id="awards" class="section">
+      <h2>Awards &amp; recognition</h2>
+      <div class="awards">
+        <div><h3>Award name</h3><p>Organization. Year.</p></div>
+        <div><h3>Certification</h3><p>Issuer. Year.</p></div>
+        <div><h3>Recognition</h3><p>Short description.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>A few other things I've built</h2>
+      <div class="grid small">
+        <article class="card"><h3>Side project</h3><p>One-line description.</p><a href="#">GitHub →</a></article>
+        <article class="card"><h3>Design exercise</h3><p>One-line description.</p><a href="#">Behance →</a></article>
+        <article class="card"><h3>Mini tool</h3><p>One-line description.</p><a href="#">Live demo →</a></article>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h2>Let's work together</h2>
+      <p>My inbox is open for projects, collaborations, and new opportunities. Send me a note and I will reply.</p>
+      <div class="contact-wrap">
+        <div class="info">
+          <p><strong>Email</strong><br><a href="mailto:you@example.com">you@example.com</a></p>
+          <p><strong>Based in</strong><br>Your city, Country</p>
+          <a href="#" class="btn ghost">Request my CV</a>
+        </div>
+        <form id="contact-form">
+          <label>Name<input type="text" id="name" required></label>
+          <label>Email<input type="email" id="email" required></label>
+          <label>Message<textarea id="message" rows="4" required></textarea></label>
+          <button class="btn" type="submit">Send message</button>
+          <p id="form-note" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Your Name. All rights reserved.</p>
+    <p class="social"><a href="mailto:you@example.com">Email</a><a href="#">Instagram</a><a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">Behance</a></p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
