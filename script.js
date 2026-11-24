@@ -1,169 +1,269 @@
-// =========================
-// DARK / LIGHT THEME
-// =========================
 
-const root = document.documentElement;
-const themeBtn = document.getElementById("theme-toggle");
-
-// Load saved theme
-root.dataset.theme = localStorage.getItem("theme") || "light";
-
-// Toggle theme
-themeBtn.addEventListener("click", () => {
-  const theme = root.dataset.theme === "dark" ? "light" : "dark";
-
-  root.dataset.theme = theme;
-  localStorage.setItem("theme", theme);
-});
-
-
-// =========================
-// MOBILE MENU
-// =========================
+// ========================================
+// 1. MOBILE NAVIGATION
+// ========================================
 
 const menu = document.getElementById("menu");
 const menuBtn = document.querySelector(".menu-btn");
 
-// Open and close menu
-menuBtn.addEventListener("click", () => {
-  menu.classList.toggle("open");
+if (menu && menuBtn) {
 
-  menuBtn.setAttribute(
-    "aria-expanded",
-    menu.classList.contains("open")
-  );
-});
+  // Open and close mobile menu
+  menuBtn.addEventListener("click", () => {
 
-// Close menu after clicking a link
-menu.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    menu.classList.remove("open");
-    menuBtn.setAttribute("aria-expanded", "false");
+    const isOpen = menu.classList.toggle("open");
+
+    menuBtn.setAttribute("aria-expanded", isOpen);
+
+    menuBtn.textContent = isOpen ? "✕" : "☰";
+
   });
-});
 
+  // Close menu after clicking a navigation link
+  menu.querySelectorAll("a").forEach(link => {
 
-// =========================
-// ACTIVE NAVIGATION
-// =========================
+    link.addEventListener("click", () => {
 
-const links = menu.querySelectorAll("a");
+      menu.classList.remove("open");
 
-const navObserver = new IntersectionObserver(sections => {
-  sections.forEach(section => {
-    if (section.isIntersecting) {
-      links.forEach(link => {
-        link.classList.toggle(
-          "active",
-          link.hash === "#" + section.target.id
-        );
-      });
-    }
-  });
-}, {
-  rootMargin: "-45% 0px -50% 0px"
-});
+      menuBtn.setAttribute("aria-expanded", "false");
 
-// Watch each section
-links.forEach(link => {
-  const section = document.querySelector(link.hash);
+      menuBtn.textContent = "☰";
 
-  if (section) {
-    navObserver.observe(section);
-  }
-});
-
-
-// =========================
-// PROJECT FILTERS
-// =========================
-
-const filters = document.querySelectorAll(".filter");
-const projects = document.querySelectorAll("#work .card");
-
-filters.forEach(button => {
-  button.addEventListener("click", () => {
-
-    // Update active filter
-    filters.forEach(filter => filter.classList.remove("active"));
-    button.classList.add("active");
-
-    // Show matching projects
-    projects.forEach(project => {
-      const category = button.dataset.filter;
-
-      project.classList.toggle(
-        "hide",
-        category !== "all" && project.dataset.cat !== category
-      );
     });
 
   });
-});
 
+  // Close menu when clicking outside
+  document.addEventListener("click", event => {
 
-// =========================
-// SHOW MORE EXPERIENCE
-// =========================
+    if (
+      !menu.contains(event.target) &&
+      !menuBtn.contains(event.target)
+    ) {
 
-const moreBtn = document.getElementById("more-jobs");
-const extraJobs = document.querySelectorAll(".job.extra");
+      menu.classList.remove("open");
 
-moreBtn.addEventListener("click", () => {
-  const show = extraJobs[0].hidden;
+      menuBtn.setAttribute("aria-expanded", "false");
 
-  extraJobs.forEach(job => {
-    job.hidden = !show;
-  });
+      menuBtn.textContent = "☰";
 
-  moreBtn.textContent = show
-    ? "Show fewer roles"
-    : "Show more roles";
-});
-
-
-// =========================
-// SCROLL ANIMATIONS
-// =========================
-
-const revealObserver = new IntersectionObserver(elements => {
-  elements.forEach(element => {
-    if (element.isIntersecting) {
-      element.target.classList.add("show");
-      revealObserver.unobserve(element.target);
     }
+
   });
-}, {
-  threshold: 0.1
+
+}
+
+
+// ========================================
+// 2. ACTIVE NAVIGATION ON SCROLL
+// ========================================
+
+const navLinks = document.querySelectorAll("#menu a");
+
+const sections = document.querySelectorAll(
+  "main section[id]"
+);
+
+if ("IntersectionObserver" in window) {
+
+  const navObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        navLinks.forEach(link => {
+
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === `#${entry.target.id}`
+          );
+
+        });
+
+      }
+
+    });
+
+  }, {
+
+    rootMargin: "-35% 0px -55% 0px"
+
+  });
+
+  sections.forEach(section => {
+
+    navObserver.observe(section);
+
+  });
+
+}
+
+
+// ========================================
+// 3. PROJECT FILTERS
+// ========================================
+
+const filters = document.querySelectorAll(".filter");
+
+const projects = document.querySelectorAll("#work .card");
+
+filters.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const selectedCategory = button.dataset.filter;
+
+    // Update active filter button
+    filters.forEach(filter => {
+
+      filter.classList.remove("active");
+
+      filter.setAttribute("aria-pressed", "false");
+
+    });
+
+    button.classList.add("active");
+
+    button.setAttribute("aria-pressed", "true");
+
+
+    // Display matching projects
+    projects.forEach(project => {
+
+      const projectCategory = project.dataset.cat;
+
+      const shouldHide =
+        selectedCategory !== "all" &&
+        projectCategory !== selectedCategory;
+
+      project.classList.toggle("hide", shouldHide);
+
+    });
+
+  });
+
 });
 
-// Animate sections
-document.querySelectorAll(".section, .hero").forEach(section => {
-  section.classList.add("reveal");
-  revealObserver.observe(section);
-});
+
+// ========================================
+// 4. SHOW MORE / SHOW LESS EXPERIENCE
+// ========================================
+
+const experienceToggle = document.getElementById(
+  "experienceToggle"
+);
+
+const moreExperience = document.getElementById(
+  "moreExperience"
+);
+
+if (experienceToggle && moreExperience) {
+
+  experienceToggle.addEventListener("click", () => {
+
+    // Toggle additional experience
+    const isExpanded = moreExperience.classList.toggle("show");
+
+    // Update button text
+    experienceToggle.textContent = isExpanded
+      ? "Show Less"
+      : "Show More";
+
+    // Update accessibility attribute
+    experienceToggle.setAttribute(
+      "aria-expanded",
+      isExpanded
+    );
+
+  });
+
+}
 
 
-// =========================
-// CONTACT FORM
-// =========================
+// ========================================
+// 5. SCROLL REVEAL ANIMATIONS
+// ========================================
 
-const form = document.getElementById("contact-form");
+const revealElements = document.querySelectorAll(
+  ".hero, .section"
+);
+
+if ("IntersectionObserver" in window) {
+
+  const revealObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        entry.target.classList.add("show");
+
+        revealObserver.unobserve(entry.target);
+
+      }
+
+    });
+
+  }, {
+
+    threshold: 0.1
+
+  });
+
+  revealElements.forEach(element => {
+
+    element.classList.add("reveal");
+
+    revealObserver.observe(element);
+
+  });
+
+} else {
+
+  // Fallback for browsers without IntersectionObserver
+  revealElements.forEach(element => {
+
+    element.classList.add("show");
+
+  });
+
+}
+
+
+// ========================================
+// 6. CONTACT FORM
+// ========================================
+
+const contactForm = document.getElementById("contact-form");
+
 const formNote = document.getElementById("form-note");
 
-form.addEventListener("submit", event => {
-  event.preventDefault();
+if (contactForm && formNote) {
 
-  formNote.textContent =
-    "Thanks! Connect a form service to start receiving messages.";
+  contactForm.addEventListener("submit", event => {
 
-  form.reset();
-});
+    event.preventDefault();
+
+    formNote.textContent =
+      "Thank you for your message! A form service needs to be connected to receive submissions.";
+
+    contactForm.reset();
+
+  });
+
+}
 
 
-// =========================
-// COPYRIGHT YEAR
-// =========================
+// ========================================
+// 7. AUTOMATIC COPYRIGHT YEAR
+// ========================================
 
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+const yearElement = document.getElementById("year");
+
+if (yearElement) {
+
+  yearElement.textContent = new Date().getFullYear();
+
+}
